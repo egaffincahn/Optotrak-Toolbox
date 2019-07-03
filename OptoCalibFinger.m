@@ -39,9 +39,10 @@ if nargin < 1 || isempty(opt)
     input('Loading Optotrak. Press Enter when exactly 1 marker is connected.')
     OptoInit(opt);
     optotrak('OptotrakSetProcessingFlags', {'OPTO_LIB_POLL_REAL_DATA';'OPTO_CONVERT_ON_HOST';'OPTO_RIGID_ON_HOST'});
+else
+    assert(isstruct(opt), 'Input argument OPT should be a structure with the Optotrak collection parameters.')
+    assert(opt.NumMarkers == 1, 'Only one marker should be connected initially. Check Optotrak collection parameters.')
 end
-assert(isstruct(opt), 'Input argument OPT should be a structure with the Optotrak collection parameters.')
-assert(opt.NumMarkers == 1, 'Only one marker should be connected initially. Check Optotrak collection parameters.')
 
 %% collection
 
