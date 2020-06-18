@@ -71,14 +71,14 @@ if isfield(calibration, 'R') && ~isempty(calibration.R)
     xyz_aligned = xyz(1:3,:)';
 end
 
-% project from eye
+% project from eye onto table
 check_fields = {'n', 'V0', 'P0'};
 if all(isfield(calibration, check_fields)) && ~any(cellfun(@(f) isempty(calibration.(f)), check_fields))
     xyz = projection(calibration.n, calibration.V0, calibration.P0, xyz(1:3,:)); % project finger onto table
     xyz_projected = xyz';
 end
 
-% convert to psychtoolbox space
+% convert from table to psychtoolbox space
 if isfield(calibration, 'M') && ~isempty(calibration.M)
     ptb = calibration.M * [xyz; ones(1,size(xyz,2))];
     ptb = ptb(1:2,:)';
